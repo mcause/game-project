@@ -1,4 +1,28 @@
 body{
-    background: aquamarine;
+    /* background: rgb(125, 237, 19); */
     font-size: 200%;
 }
+
+canvas{
+   position: relative;
+   cursor: none;
+}
+
+.gamestart{
+    position: relative;
+    width: 800px;
+    height: 700px;
+    position: absolute;
+}
+
+.startup{
+    position: absolute;
+    top:0;
+    left:0px;
+    width: 800px;
+    height:700px;
+}
+
+/* #crossHair{
+
+} */
