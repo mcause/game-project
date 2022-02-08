@@ -1,28 +1,35 @@
 body{
+    background: orangered;
     /* background: rgb(125, 237, 19); */
     font-size: 200%;
 }
 
 canvas{
-   position: relative;
+    border: palegreen;
+}
+   /* position: relative;
+   top: 10px;
    cursor: none;
+   display: flex;
+   align-items: center;*/
+
+body.hidden{
+    display:none;
+} 
+
+.main-menu{   
+    position: absolute;
+    border: orangered double;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
-.gamestart{
-    position: relative;
-    width: 800px;
-    height: 700px;
+/* .startup{
     position: absolute;
-}
-
-.startup{
-    position: absolute;
-    top:0;
-    left:0px;
+    top:50px;
     width: 800px;
     height:700px;
-}
-
-/* #crossHair{
-
 } */

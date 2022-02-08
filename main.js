@@ -101,8 +101,8 @@ class CrossHair extends DrawObject{
             DrawObject.prototype.move.apply(this);
             if(this.isCollding(duckAround) && this !== duckAround){
                 // ramdom moving ducks around 
-                // duckAround.x = Math.random() * canvas.width;
-                // duckAround.y = Math.random() * canvas.height;
+                duckAround.x = Math.random() * canvas.width;
+                duckAround.y = Math.random() * canvas.height;
                 stageDucks.splice(i, 1)
                 score++;
                 debug.innerText = `score: ${score}`;
@@ -192,6 +192,7 @@ window.addEventListener('keyup', e => {
 let duckSpawnCount = 0;
 let maxDuckspawnCount = 20;
 stageDucks.push(crossHair, retrieverDog, duckAround, flyingDuck)
+
 function draw(){
     // clears the screen so we can play again
     context.clearRect(0, 0, canvas.width, canvas.height)
@@ -207,7 +208,19 @@ function draw(){
     }
     setTimeout(draw, 1000 / FPS);
 }
-draw();
+const startButton = document.querySelector('.main-menu button');
+const mainMenu = document.querySelector('.main-menu');
+const gameContainer = document.querySelector('.gameplay')
+
+startButton.addEventListener('click', () => {
+    mainMenu.classList.add('hidden');
+    gameContainer.classList.remove('hidden');
+
+
+    draw();
+});
+
+
 
    // // if my character can be rotated, rotate it
         // if(this.rotation){
