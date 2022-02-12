@@ -17,13 +17,16 @@ const frontDuck = new Image();
 frontDuck.src = './img/duckfront.png'
 const beagleRet = new Image();
 beagleRet.src = '/img/beagle.gif'
+const rightDuck = new Image()
+rightDuck.src = './img/rightMallard.jpeg'
 const gamePlay = new Image();
 gamePlay.src = '/img/mainGame.JPG'
 const startUp = new Image();
 startUp.src = '/img/startup.jpeg'
 
-const startButton = document.querySelector('.main-menu button');
-const mainMenu = document.querySelector('.main-menu');
+// grabbing reference to certain items in the html through javaScript
+const startButton = document.querySelector('.start-up button');
+const mainMenu = document.querySelector('.start-up');
 const gameContainer = document.querySelector('.gameplay'); 
 // creating a point on the x axis  
 let x = 50;
@@ -62,14 +65,14 @@ class DrawObject{
         context.fillStyle = this.color;
          // checking the image then drawing it
         if(this.img){
-            context.drawImage(this.img, 0, 0, this.width, this.height)
+            context.drawImage(this.img, -this.width * .5, -this.height * .5, this.width, this.height)
         }
         else if(!this.isCircle){
             //draw a rectangle 
-            context.fillRect(0, 0, this.width, this.height);
+            context.fillRect(-this.width * .5, -this.height * .5, this.width, this.height);
         } else {
             context.beginPath();
-            context.arc(0, 0, this.width, 0, 2 * Math.PI);
+            context.arc(-this.width * .5, -this.height * .5, this.width, 0, 2 * Math.PI);
             context.fill();
             context.closePath();
         }
@@ -104,9 +107,9 @@ class CrossHair extends DrawObject{
     speed = 3;
     img = aim;
     isCircle = true;
-    width =45;
+    width = 45;
     height= 45;
-    move(){
+    click(){
         stageDucks.forEach((duckAround, i) => { 
             DrawObject.prototype.move.apply(this);
             if(this.isCollding(duckAround) && this !== duckAround){
@@ -149,23 +152,36 @@ class DuckAround extends DrawObject{
     x = 500;
     y = 400;
 }
-// use the DrawObject funtion to create a flyingDuck class 
-class FlyingDuck extends DrawObject{
-    img = leftGeese
-    x = 850 
-    width = 100
-    height = 100
+// use the DrawObject funtion to create a flyingGeese class 
+class FlyingGeese extends DrawObject{
+    img = leftGeese;
+    x = 850;
+    width = 100;
+    height = 100;
     direction = 1; 
     move(){
-        this.x -=2.2*this.direction
+        this.x -=2.2*this.direction;
     }
 }
 
-const flyingDuck = new FlyingDuck();
+class RightDuck extends DrawObject{
+    img = rightDuck;
+    x = -150;
+    width = 100;
+    height = 100;
+    direction = -1;
+    move(){
+        this.x -= 2.2 * this.direction;
+    }
+
+}
+
+const rightMallard = new RightDuck();
+const flyingGeese = new FlyingGeese();
 const crossHair = new CrossHair();
-const retrieverDog = new DrawObject();
-retrieverDog.y = 20;
-retrieverDog.x = 50;
+// const retrieverDog = new DrawObject();
+// retrieverDog.y = 12;
+// retrieverDog.x = 50;
 // retrieverDog.color = yellow;
 const duckAround = new DuckAround();
 
@@ -206,13 +222,18 @@ window.addEventListener('keyup', e => {
     stageDucks.push(new Duck)
 });
 
+// when canvas is clicked invoke crossHair click
+canvas.addEventListener('click', () => {
+    crossHair.click()
+})
+
 // setting a cariable to the initial amount of ducks to appear 
 let duckSpawnCount = 0;
 // creating a variable to the max amount of ducks to appear 
 let maxDuckspawnCount = 20;
-
+let duckAmount = 25
 //pushing objects into stageDucks 
-stageDucks.push(crossHair, retrieverDog, duckAround, flyingDuck)
+stageDucks.push(crossHair, duckAround, rightMallard, flyingGeese)
 
 // function that draws my images to the screen 
 function draw(){
@@ -222,17 +243,19 @@ function draw(){
     stageDucks.forEach(obj => obj.draw());
     // mainMenu.draw()
     duckSpawnCount++
-    if(duckSpawnCount >= maxDuckspawnCount){
+    if(duckSpawnCount >= maxDuckspawnCount && duckAmount > 0){
         stageDucks.push(new DuckAround)
         duckSpawnCount = 0
+        duckAmount -- 
     }
     setTimeout(draw, 1000 / FPS);
 }
 
-// startButton.addEventListener('click', () => {
-//     mainMenu.classList.add('hidden');
-//     gameContainer.classList.remove('hidden');
+startButton.addEventListener('click', () => {
+    mainMenu.classList.add('hidden');
+    gameContainer.classList.remove('hidden');
     
-// });
+    draw();
+});
 
-draw();
+

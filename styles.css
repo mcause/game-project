@@ -1,15 +1,14 @@
 html{
     height: 100vh;
     width: 100vw;
-}
+} 
 
 body{
     width: 100%;
-    height: 100%;
-    /* background: orangered; */
-    /* background: rgb(125, 237, 19); */
+    height: 100%; 
+    background:rgba(4, 29, 16, 0.76) ; 
     font-size: 200%;
-}
+} 
 
 canvas{
     border: 3px solid red;
@@ -27,13 +26,18 @@ canvas{
     position: absolute;
     width: 800px;
     height: 700px;
-    left: 50%;
+    left: 51%;
     transform: translateX(-50%);
 }
-/* 
-body.hidden{
+
+.debug{
+    position: absolute;
+    z-index: 2;
+}
+
+.hidden{
     display:none;
-}  */
+} 
 
 .container{
     display: flex;
@@ -45,24 +49,27 @@ body.hidden{
 }
 
 .main-menu{   
-    position: absolute;
+    position: absolute ;
+    width: 800px;
+    height: 700px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
     border: orangered double;
+    box-shadow: 10px;
     border-radius: 5px;
     display: inline-block;
     align-items: center;
 }
 
-.gameplay{
-    position: absolute;
-    display: inline-block;
-    border: 1px dashed purple;
-    width: 790px;
-    height:690px;
-}
-
-.startup{
-    position: absolute;
-    border: 1px solid orange;
-    width: 790px;
-    height:690px;
+.text-box{
+    /* position: relative ; */
+    background-color:rgba(128, 119, 0, 0.349);
+    border-radius: 5%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-self:baseline;
+    align-items: center;
+    align-content: flex-end;
 } 
