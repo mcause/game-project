@@ -17,7 +17,17 @@ const frontDuck = new Image();
 frontDuck.src = './img/duckfront.png'
 const beagleRet = new Image();
 beagleRet.src = '/img/beagle.gif'
+const gamePlay = new Image();
+gamePlay.src = '/img/mainGame.JPG'
+const startUp = new Image();
+startUp.src = '/img/startup.jpeg'
+
+const startButton = document.querySelector('.main-menu button');
+const mainMenu = document.querySelector('.main-menu');
+const gameContainer = document.querySelector('.gameplay'); 
+// creating a point on the x axis  
 let x = 50;
+//score set to 0 so you can manipulate later on 
 let score = 0;
 debug.innerText = `score: ${score}`;
 const FPS = 60;
@@ -43,7 +53,6 @@ class DrawObject{
     y = 50;
     width = 50;
     height = 100;
-    // rotation = 
     draw() {
         // if my character can move then move 
         this.move();
@@ -81,7 +90,8 @@ class DrawObject{
             this.y += this.speed;
         }
     }
-    //relative 
+    
+    //relative coliding function can be used for multiple things 
     isCollding(obj){
         return this.x < obj.x + obj.width &&
         this.x + this.width > obj.x &&
@@ -100,11 +110,17 @@ class CrossHair extends DrawObject{
         stageDucks.forEach((duckAround, i) => { 
             DrawObject.prototype.move.apply(this);
             if(this.isCollding(duckAround) && this !== duckAround){
-                // ramdom moving ducks around 
+                // ramdom moving ducks around the canvas(screen)
                 duckAround.x = Math.random() * canvas.width;
                 duckAround.y = Math.random() * canvas.height;
-                stageDucks.splice(i, 1)
+                stageDucks.splice(i, 1);
                 score++;
+            // }else if(this.isCollding(flyingDuck) && this !== flyingDuck){
+            //     flyingDuck.x = Math.random() * canvas.width;
+            //     stageDucks.splice(i, 1);
+            //     score++; 
+            // }
+
                 debug.innerText = `score: ${score}`;
             }
         })
@@ -133,7 +149,7 @@ class DuckAround extends DrawObject{
     x = 500;
     y = 400;
 }
-
+// use the DrawObject funtion to create a flyingDuck class 
 class FlyingDuck extends DrawObject{
     img = leftGeese
     x = 850 
@@ -150,10 +166,10 @@ const crossHair = new CrossHair();
 const retrieverDog = new DrawObject();
 retrieverDog.y = 20;
 retrieverDog.x = 50;
-retrieverDog.color = 'yellow';
+// retrieverDog.color = yellow;
 const duckAround = new DuckAround();
 
-// listen for input
+// listen for input if condition is met then make crosshair follow
 window.addEventListener('keydown', e => {
     console.log(e);
     e.preventDefault();
@@ -171,6 +187,7 @@ window.addEventListener('keydown', e => {
     }
 });
 
+//Listen for a keypress not pressed  if the condition is met 
 window.addEventListener('keyup', e => {
     console.log(e);
     e.preventDefault();
@@ -189,18 +206,21 @@ window.addEventListener('keyup', e => {
     stageDucks.push(new Duck)
 });
 
+// setting a cariable to the initial amount of ducks to appear 
 let duckSpawnCount = 0;
+// creating a variable to the max amount of ducks to appear 
 let maxDuckspawnCount = 20;
+
+//pushing objects into stageDucks 
 stageDucks.push(crossHair, retrieverDog, duckAround, flyingDuck)
 
+// function that draws my images to the screen 
 function draw(){
     // clears the screen so we can play again
     context.clearRect(0, 0, canvas.width, canvas.height)
-    // crossHair.draw();
-    // retrieverDog.draw();
-    // duckAround.draw();
-    // flyingDuck.draw()
+    //Drawing each object that is within stageDucks to the canvas 
     stageDucks.forEach(obj => obj.draw());
+    // mainMenu.draw()
     duckSpawnCount++
     if(duckSpawnCount >= maxDuckspawnCount){
         stageDucks.push(new DuckAround)
@@ -208,23 +228,11 @@ function draw(){
     }
     setTimeout(draw, 1000 / FPS);
 }
-const startButton = document.querySelector('.main-menu button');
-const mainMenu = document.querySelector('.main-menu');
-const gameContainer = document.querySelector('.gameplay')
 
-startButton.addEventListener('click', () => {
-    mainMenu.classList.add('hidden');
-    gameContainer.classList.remove('hidden');
+// startButton.addEventListener('click', () => {
+//     mainMenu.classList.add('hidden');
+//     gameContainer.classList.remove('hidden');
+    
+// });
 
-
-    draw();
-});
-
-
-
-   // // if my character can be rotated, rotate it
-        // if(this.rotation){
-            
-        // shifting the center view of the canvas to the characters x and y
-        // context.rotate(-this.rotation);
-        // }
+draw();

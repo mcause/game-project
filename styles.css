@@ -1,11 +1,21 @@
+html{
+    height: 100vh;
+    width: 100vw;
+}
+
 body{
-    background: orangered;
+    width: 100%;
+    height: 100%;
+    /* background: orangered; */
     /* background: rgb(125, 237, 19); */
     font-size: 200%;
 }
 
 canvas{
-    border: palegreen;
+    border: 3px solid red;
+    position: relative;
+    cursor:none;
+    margin: auto;
 }
    /* position: relative;
    top: 10px;
@@ -13,23 +23,46 @@ canvas{
    display: flex;
    align-items: center;*/
 
+.background{
+    position: absolute;
+    width: 800px;
+    height: 700px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* 
 body.hidden{
     display:none;
-} 
+}  */
+
+.container{
+    display: flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
 
 .main-menu{   
     position: absolute;
     border: orangered double;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
+    display: inline-block;
     align-items: center;
-
 }
 
-/* .startup{
+.gameplay{
     position: absolute;
-    top:50px;
-    width: 800px;
-    height:700px;
-} */
+    display: inline-block;
+    border: 1px dashed purple;
+    width: 790px;
+    height:690px;
+}
+
+.startup{
+    position: absolute;
+    border: 1px solid orange;
+    width: 790px;
+    height:690px;
+} 
