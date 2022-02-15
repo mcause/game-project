@@ -18,7 +18,7 @@ frontDuck.src = './img/duckfront.png'
 const beagleRet = new Image();
 beagleRet.src = '/img/beagle.gif'
 const rightDuck = new Image()
-rightDuck.src = './img/rightMallard.jpeg'
+rightDuck.src = './img/mallardsflying.png'
 const gamePlay = new Image();
 gamePlay.src = '/img/mainGame.JPG'
 const startUp = new Image();
@@ -50,6 +50,7 @@ canvas.addEventListener('mousemove', e => {
     crossHair.x = mouse.x
     crossHair.y = mouse.y 
 })
+
 //relative draw object 
 class DrawObject{
     x = 50;
@@ -133,15 +134,19 @@ class CrossHair extends DrawObject{
 class DuckAround extends DrawObject{
     constructor(){
         super()
+        // ducks appreaing randomly on the x and y axis with line 137 and 138 
         this.x = Math.random()* canvas.width
         this.y = Math.random()* canvas.height
         this.height = 20;
         this.width = 20;
     }
+
     move(){
-        this.height += 1.5;
-        this.width +=1.5;
-        if(this.height > 105){
+        //speed at which the ducks flying at you appear 
+        this.height += 1.0;
+        this.width +=1.0;
+        // how big the ducks appear before they fly away 
+        if(this.height > 120){
             stageDucks.splice(stageDucks.indexOf(this), 1)
         }
    }
@@ -156,22 +161,26 @@ class DuckAround extends DrawObject{
 class FlyingGeese extends DrawObject{
     img = leftGeese;
     x = 850;
+    y = 100
     width = 100;
     height = 100;
     direction = 1; 
+    //rate of speed the geese fly across the screen 
     move(){
-        this.x -=2.2*this.direction;
+        this.x -=1.6 *this.direction;
     }
 }
 
 class RightDuck extends DrawObject{
     img = rightDuck;
     x = -150;
+    y = 200;
     width = 100;
     height = 100;
     direction = -1;
+    // the rate of speed at which the ducks are flying across 
     move(){
-        this.x -= 2.2 * this.direction;
+        this.x -= 2.1 * this.direction;
     }
 
 }
@@ -228,34 +237,48 @@ canvas.addEventListener('click', () => {
 })
 
 // setting a cariable to the initial amount of ducks to appear 
-let duckSpawnCount = 0;
+let duckSpawn = 0;
 // creating a variable to the max amount of ducks to appear 
-let maxDuckspawnCount = 20;
+let maxDuckspawn = 20;
 let duckAmount = 25
 //pushing objects into stageDucks 
 stageDucks.push(crossHair, duckAround, rightMallard, flyingGeese)
 
 // function that draws my images to the screen 
+
+
+// if(score < 8 && score > 6){
+//     alert("Looks Like someone needs to go to the range");
+//     document.location.reload();
+//     // clearInterval(interval);
+//     }
+
+
+
 function draw(){
     // clears the screen so we can play again
     context.clearRect(0, 0, canvas.width, canvas.height)
     //Drawing each object that is within stageDucks to the canvas 
     stageDucks.forEach(obj => obj.draw());
     // mainMenu.draw()
-    duckSpawnCount++
-    if(duckSpawnCount >= maxDuckspawnCount && duckAmount > 0){
+    duckSpawn++
+    if(duckSpawn >= maxDuckspawn && duckAmount > 0){
         stageDucks.push(new DuckAround)
-        duckSpawnCount = 0
+        duckSpawn = 0
         duckAmount -- 
-    }
+        
+    }    
     setTimeout(draw, 1000 / FPS);
-}
+}    
 
 startButton.addEventListener('click', () => {
     mainMenu.classList.add('hidden');
     gameContainer.classList.remove('hidden');
     
     draw();
-});
+});    
+
+
+
 
 
