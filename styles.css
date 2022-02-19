@@ -17,12 +17,7 @@ canvas{
     margin: auto;
     left: .2%
 }
-   /* position: relative;
-   top: 10px;
-   cursor: none;
-   display: flex;
-   align-items: center;*/
-
+   
 .background{
     position: absolute;
     width: 800px;
